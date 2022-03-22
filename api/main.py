@@ -19,9 +19,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
+# TODO load correct fracture model
 MODEL = tf.keras.models.load_model("../potatoes.h5")
-
+# TODO use correct fracture class names
 CLASS_NAMES = ["Early Blight", "Late Blight", "Healthy"]
 
 
