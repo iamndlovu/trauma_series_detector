@@ -41,6 +41,13 @@ async def predict(
 ):
     image = read_file_as_image(await file.read())
     img_batch = np.expand_dims(image, 0)
+    img_batch = tf.image.resize(
+        img_batch,
+        [256, 256],
+        # method=bilinear,
+        preserve_aspect_ratio=False,
+        antialias=False,
+    )
 
     predictions = MODEL.predict(img_batch)
 
