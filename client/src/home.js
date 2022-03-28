@@ -226,10 +226,10 @@ export const ImageUpload = () => {
 			<AppBar position="static" className={classes.appbar}>
 				<Toolbar>
 					<Typography className={classes.title} variant="h6" noWrap>
-						PRO: Fracture Detection
+						Trauma Series Detector
 					</Typography>
 					<div className={classes.grow} />
-					<Avatar src={cblogo}></Avatar>
+					<Avatar style={{ marginRight: '2rem' }} src={cblogo}></Avatar>
 				</Toolbar>
 			</AppBar>
 			<Container
