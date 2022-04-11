@@ -1,42 +1,12 @@
 import { useState, useEffect } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Avatar from '@material-ui/core/Avatar';
 import Container from '@material-ui/core/Container';
 import React from 'react';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import {
-	Paper,
-	CardActionArea,
-	CardMedia,
-	Grid,
-	TableContainer,
-	Table,
-	TableBody,
-	TableHead,
-	TableRow,
-	TableCell,
-	Button,
-	CircularProgress,
-} from '@material-ui/core';
-import cblogo from './cblogo.PNG';
-import image from './bg.png';
-import { DropzoneArea } from 'material-ui-dropzone';
-import { common } from '@material-ui/core/colors';
-import Clear from '@material-ui/icons/Clear';
-
-const ColorButton = withStyles(theme => ({
-	root: {
-		color: theme.palette.getContrastText(common.white),
-		backgroundColor: common.white,
-		'&:hover': {
-			backgroundColor: '#ffffff7a',
-		},
-	},
-}))(Button);
+import Header from './components/header/Header';
+import { Grid } from '@material-ui/core';
+import bgImage from './bg.png';
+import PatientDetailsForm from './components/form/PatientDetailsForm';
+import ImageCard from './components/card/ImageCard';
 const axios = require('axios').default;
 
 const useStyles = makeStyles(theme => ({
@@ -68,7 +38,7 @@ const useStyles = makeStyles(theme => ({
 		padding: '4em 1em 0 1em',
 	},
 	mainContainer: {
-		backgroundImage: `url(${image})`,
+		backgroundImage: `url(${bgImage})`,
 		backgroundRepeat: 'no-repeat',
 		backgroundPosition: 'center',
 		backgroundSize: 'cover',
@@ -163,7 +133,24 @@ export const ImageUpload = () => {
 	const [data, setData] = useState();
 	const [image, setImage] = useState(false);
 	const [isLoading, setIsloading] = useState(false);
+	const [patientFirstName, setPatientFirstName] = useState('');
+	const [patientLastName, setPatientLastName] = useState('');
+	const [hospitalNumber, sethospitalNumber] = useState('');
+	const [patientID, setPatientID] = useState('');
+	const [referringClinician, setreferringClinician] = useState('');
+	const [showForm, setShowForm] = useState(true);
+
 	let confidence = 0;
+
+	const onChangeFirstName = e => setPatientFirstName(e.target.value);
+	const onChangeLastName = e => setPatientLastName(e.target.value);
+	const onChangeHospitalNumber = e => sethospitalNumber(e.target.value);
+	const onChangeClinician = e => setreferringClinician(e.target.value);
+	const onChangePatientID = e => setPatientID(e.target.value);
+	const submitForm = e => {
+		e.preventDefault();
+		setShowForm(false);
+	};
 
 	const sendFile = async () => {
 		if (image) {
@@ -186,6 +173,7 @@ export const ImageUpload = () => {
 		setImage(false);
 		setSelectedFile(null);
 		setPreview(null);
+		setShowForm(true);
 	};
 
 	useEffect(() => {
@@ -223,15 +211,7 @@ export const ImageUpload = () => {
 
 	return (
 		<React.Fragment>
-			<AppBar position="static" className={classes.appbar}>
-				<Toolbar>
-					<Typography className={classes.title} variant="h6" noWrap>
-						Trauma Series Detector
-					</Typography>
-					<div className={classes.grow} />
-					<Avatar style={{ marginRight: '2rem' }} src={cblogo}></Avatar>
-				</Toolbar>
-			</AppBar>
+			<Header />
 			<Container
 				maxWidth={false}
 				className={classes.mainContainer}
@@ -245,105 +225,34 @@ export const ImageUpload = () => {
 					alignItems="center"
 					spacing={2}
 				>
-					<Grid item xs={12}>
-						<Card
-							className={`${classes.imageCard} ${
-								!image ? classes.imageCardEmpty : ''
-							}`}
-						>
-							{image && (
-								<CardActionArea>
-									<CardMedia
-										className={classes.media}
-										image={preview}
-										component="image"
-										title="Contemplative Reptile"
-									/>
-								</CardActionArea>
-							)}
-							{!image && (
-								<CardContent className={classes.content}>
-									<DropzoneArea
-										acceptedFiles={['image/*']}
-										dropzoneText={
-											'Drag and drop an image of your scan to process'
-										}
-										onChange={onSelectFile}
-									/>
-								</CardContent>
-							)}
-							{data && (
-								<CardContent className={classes.detail}>
-									<TableContainer
-										component={Paper}
-										className={classes.tableContainer}
-									>
-										<Table
-											className={classes.table}
-											size="small"
-											aria-label="simple table"
-										>
-											<TableHead className={classes.tableHead}>
-												<TableRow className={classes.tableRow}>
-													<TableCell className={classes.tableCell1}>
-														Label:
-													</TableCell>
-													<TableCell
-														align="right"
-														className={classes.tableCell1}
-													>
-														Confidence:
-													</TableCell>
-												</TableRow>
-											</TableHead>
-											<TableBody className={classes.tableBody}>
-												<TableRow className={classes.tableRow}>
-													<TableCell
-														component="th"
-														scope="row"
-														className={classes.tableCell}
-													>
-														{data.class}
-													</TableCell>
-													<TableCell
-														align="right"
-														className={classes.tableCell}
-													>
-														{confidence}%
-													</TableCell>
-												</TableRow>
-											</TableBody>
-										</Table>
-									</TableContainer>
-								</CardContent>
-							)}
-							{isLoading && (
-								<CardContent className={classes.detail}>
-									<CircularProgress
-										color="secondary"
-										className={classes.loader}
-									/>
-									<Typography className={classes.title} variant="h6" noWrap>
-										Processing
-									</Typography>
-								</CardContent>
-							)}
-						</Card>
-					</Grid>
-					{data && (
-						<Grid item className={classes.buttonGrid}>
-							<ColorButton
-								variant="contained"
-								className={classes.clearButton}
-								color="primary"
-								component="span"
-								size="large"
-								onClick={clearData}
-								startIcon={<Clear fontSize="large" />}
-							>
-								Clear
-							</ColorButton>
-						</Grid>
+					{showForm ? (
+						<PatientDetailsForm
+							formData={{
+								patientFirstName,
+								patientLastName,
+								hospitalNumber,
+								patientID,
+								referringClinician,
+							}}
+							formControls={{
+								onChangeFirstName,
+								onChangeLastName,
+								onChangeHospitalNumber,
+								onChangeClinician,
+								onChangePatientID,
+								submitForm,
+							}}
+						/>
+					) : (
+						<ImageCard
+							isLoading={isLoading}
+							image={image}
+							preview={preview}
+							onSelectFile={onSelectFile}
+							data={data}
+							confidence={confidence}
+							clearData={clearData}
+						/>
 					)}
 				</Grid>
 			</Container>
