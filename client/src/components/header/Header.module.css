@@ -1,0 +1,20 @@
+.Header {
+	background: black;
+	box-shadow: none;
+	color: white;
+	width: 100vw;
+	padding: 1rem 2rem;
+
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.appLogo {
+	height: 2rem;
+}
+
+.appName {
+	font-weight: 600;
+	font-size: 1.6rem;
+}
