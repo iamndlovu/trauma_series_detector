@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
+
+import FullReportTable from './../report/FullReportTable';
+import ReactToPrint from 'react-to-print';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
@@ -147,93 +150,128 @@ const ImageCard = ({
 	confidence,
 	isLoading,
 	clearData,
+	formData,
 }) => {
+	const [showReport, setShowReport] = useState(false);
+
+	const toggleReport = () => setShowReport(oldState => !oldState);
+
 	const classes = useStyles();
 	return (
 		<>
 			<Grid item xs={12}>
-				<Card
-					className={`${classes.imageCard} ${
-						!image ? classes.imageCardEmpty : ''
-					}`}
-				>
-					{image && (
-						<CardActionArea>
-							<CardMedia
-								className={classes.media}
-								image={preview}
-								component="image"
-								title="Contemplative Reptile"
-							/>
-						</CardActionArea>
-					)}
-					{!image && (
-						<CardContent className={classes.content}>
-							<DropzoneArea
-								acceptedFiles={['image/*']}
-								dropzoneText={'Drag and drop an image of your scan to process'}
-								onChange={onSelectFile}
-							/>
-						</CardContent>
-					)}
-					{data && (
-						<CardContent className={classes.detail}>
-							<TableContainer
-								component={Paper}
-								className={classes.tableContainer}
-							>
-								<Table
-									className={classes.table}
-									size="small"
-									aria-label="simple table"
+				{showReport ? (
+					<PrintableReport
+						formData={formData}
+						image={preview}
+						data={data}
+						confidence={confidence}
+					/>
+				) : (
+					<Card
+						className={`${classes.imageCard} ${
+							!image ? classes.imageCardEmpty : ''
+						}`}
+					>
+						{image && (
+							<CardActionArea>
+								<CardMedia
+									className={classes.media}
+									image={preview}
+									component="image"
+									title="Contemplative Reptile"
+								/>
+							</CardActionArea>
+						)}
+						{!image && (
+							<CardContent className={classes.content}>
+								<DropzoneArea
+									acceptedFiles={['image/*']}
+									dropzoneText={
+										'Drag and drop an image of your scan to process'
+									}
+									onChange={onSelectFile}
+								/>
+							</CardContent>
+						)}
+						{data && (
+							<CardContent className={classes.detail}>
+								<TableContainer
+									component={Paper}
+									className={classes.tableContainer}
 								>
-									<TableHead className={classes.tableHead}>
-										<TableRow className={classes.tableRow}>
-											<TableCell className={classes.tableCell1}>
-												Label:
-											</TableCell>
-											<TableCell align="right" className={classes.tableCell1}>
-												Confidence:
-											</TableCell>
-										</TableRow>
-									</TableHead>
-									<TableBody className={classes.tableBody}>
-										<TableRow className={classes.tableRow}>
-											<TableCell
-												component="th"
-												scope="row"
-												className={classes.tableCell}
-											>
-												{data.class}
-											</TableCell>
-											<TableCell align="right" className={classes.tableCell}>
-												{confidence}%
-											</TableCell>
-										</TableRow>
-									</TableBody>
-								</Table>
-							</TableContainer>
-						</CardContent>
-					)}
-					{isLoading && (
-						<CardContent className={classes.detail}>
-							<CircularProgress color="secondary" className={classes.loader} />
-							<Typography className={classes.title} variant="h6" noWrap>
-								Processing
-							</Typography>
-						</CardContent>
-					)}
-				</Card>
+									<Table
+										className={classes.table}
+										size="small"
+										aria-label="simple table"
+									>
+										<TableHead className={classes.tableHead}>
+											<TableRow className={classes.tableRow}>
+												<TableCell className={classes.tableCell1}>
+													Label:
+												</TableCell>
+												<TableCell align="right" className={classes.tableCell1}>
+													Confidence:
+												</TableCell>
+											</TableRow>
+										</TableHead>
+										<TableBody className={classes.tableBody}>
+											<TableRow className={classes.tableRow}>
+												<TableCell
+													component="th"
+													scope="row"
+													className={classes.tableCell}
+												>
+													{data.class}
+												</TableCell>
+												<TableCell align="right" className={classes.tableCell}>
+													{confidence}%
+												</TableCell>
+											</TableRow>
+										</TableBody>
+									</Table>
+								</TableContainer>
+							</CardContent>
+						)}
+						{isLoading && (
+							<CardContent className={classes.detail}>
+								<CircularProgress
+									color="secondary"
+									className={classes.loader}
+								/>
+								<Typography className={classes.title} variant="h6" noWrap>
+									Processing
+								</Typography>
+							</CardContent>
+						)}
+					</Card>
+				)}
 			</Grid>
 			{data && (
 				<Grid item className={classes.buttonGrid}>
+				  {!showReport && (
+						<ColorButton
+							variant="contained"
+							className={classes.clearButton}
+							color="primary"
+							component="span"
+							size="large"
+							onClick={toggleReport}
+						>
+							Full report
+						</ColorButton>
+					)}
+					<br /><br />
 					<ColorButton
 						variant="contained"
 						className={classes.clearButton}
 						color="primary"
 						component="span"
 						size="large"
-						onClick={clearData}
+						onClick={() => {
+							setShowReport(false);
+							clearData();
+						}}
 						startIcon={<Clear fontSize="large" />}
 					>
 						Clear
@@ -243,5 +281,51 @@ const ImageCard = ({
 		</>
 	);
 };
+
+const PrintableReport = ({ formData, image, data, confidence }) => {
+	const componentRef = useRef();
+	const [hover, setHover] = useState(false);
+
+
+	const buttonStyles = {
+  position: 'absolute',
+  top: '5px',
+
+	backgroundColor: '#04080e',
+	color: hover ? '#61dafb' : '#ff0000',
+	fontSize: '1.1rem',
+	minHeight: '3rem',
+	minWidth: '7rem',
+	borderRadius: '6px',
+	padding: '0.375rem 0.75rem',
+	margin: 'auto',
+	cursor: 'pointer',
+	transition: 'all 0.5s ease-in-out',
+};
+
+	return (
+		<div style={{
+		  display: 'flex',
+		  justifyContent: 'center',
+		  alignItems: 'center',
+		}}>
+			<ReactToPrint
+				trigger={() => <button onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} style={buttonStyles}>PRINT THIS REPORT</button>}
+				content={() => componentRef.current}
+			/>
+			<FullReportTable
+				formData={formData}
+				image={image}
+				data={data}
+				confidence={confidence}
+				ref={componentRef}
+			/>
+		</div>
+	);
+};
+
+//.Form .submit:hover {
+//	color: #61dafb;
+//}
 
 export default ImageCard;

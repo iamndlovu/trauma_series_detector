@@ -1,0 +1,85 @@
+.FullReportTable {
+	background: rgba(0, 0, 0, 0.9);
+	color: white;
+	border-radius: 7px;
+	min-height: 5rem;
+	flex-basis: 500px;
+	flex-shrink: 1;
+	flex-grow: 0;
+	padding: 2rem;
+	text-align: center;
+}
+
+.FullReportTable>div {
+	display: flex;
+}
+
+.FullReportTable tr.column {
+	display: flex;
+	flex-direction: column;
+}
+
+.FullReportTable tr.column td,
+.FullReportTable tr.column th {
+	padding: 1rem;
+	text-align: left;
+}
+
+.FullReportTable>table {
+	width: 100%;
+	padding: 2rem 0;
+	border: 1px solid aliceblue;
+	border-radius: 7px;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.FullReportTable>table tbody tr {
+	padding: 0;
+}
+
+.FullReportTable>table tbody tr.imageContainer {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+
+.FullReportTable>table tbody tr.imageContainer > td {
+	padding: 2.5rem;
+	text-align: center;
+	flex-basis: 400px;
+	flex-shrink: 1;
+	flex-grow: 0;
+}
+
+.FullReportTable>table tbody tr.imageContainer > td img {
+  width: 100%;
+}
+
+.FullReportTable>table tbody {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.FullReportTable>table tbody>tr {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 2rem;
+}
+
+.FullReportTable>table tbody th, .FullReportTable>table tbody td {
+	flex: 1;
+	text-align: left;
+	padding: 0 3rem;
+}
+
+.FullReportTable>table tbody th {
+	padding-left: 1rem;
+}

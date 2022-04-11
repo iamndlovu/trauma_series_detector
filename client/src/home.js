@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import React from 'react';
 import Header from './components/header/Header';
@@ -216,6 +216,7 @@ export const ImageUpload = () => {
 				maxWidth={false}
 				className={classes.mainContainer}
 				disableGutters={true}
+				style={{position: 'relative'}}
 			>
 				<Grid
 					className={classes.gridContainer}
@@ -252,6 +253,13 @@ export const ImageUpload = () => {
 							data={data}
 							confidence={confidence}
 							clearData={clearData}
+							formData={{
+								patientFirstName,
+								patientLastName,
+								hospitalNumber,
+								patientID,
+								referringClinician,
+							}}
 						/>
 					)}
 				</Grid>
