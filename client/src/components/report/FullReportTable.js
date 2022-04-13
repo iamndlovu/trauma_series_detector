@@ -34,12 +34,15 @@ const FullReportTable = React.forwardRef(
 						</tr>
 					</tbody>
 				</div>
-				<br/>
+				<br />
 				<table>
 					<tbody>
 						<tr className={styles.imageContainer}>
 							<td colSpan={2}>
-								<img src={image} />
+								<img
+									src={image}
+									alt={`${confidence}% confidence ${data.class} scan`}
+								/>
 							</td>
 						</tr>
 						<tr>
