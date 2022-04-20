@@ -38,6 +38,14 @@
 	z-index: -10;
 }
 
+.Form .formGroup label {
+	color: #fff;
+	display: flex;
+	width: 100%;
+	justify-content: flex-start;
+	margin-bottom: 1rem;
+}
+
 .Form .formGroup input,
 .Form .formGroup textarea {
 	height: 2.27rem;

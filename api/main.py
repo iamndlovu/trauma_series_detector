@@ -22,13 +22,7 @@ app.add_middleware(
 
 MODEL = tf.keras.models.load_model("./fractures.h5")
 
-CLASS_NAMES = ["c-spine_dislocation", "c-spine_fracture", "c-spine_normal", "pelvis_dislocation", "pelvis_fracture", "pelvis_normal"]
-
-
-@app.get("/ping")
-async def ping():
-    return "Hello, I am alive"
-
+CLASS_NAMES = ["C-Spine: Dislocation", "C-Spine: Fractured", "C-Spine: No Life Threatening Abnormalities Detected", "Chest: Flail", "Chest: Hemothorax", "Chest: No Life Threatening Abnormalities Detected", "Chest: Pneumothorax", "Pelvis: Fractured", "Pelvis: No Life Threatening Injuries Detected"]
 
 def read_file_as_image(data) -> np.ndarray:
     image = np.array(Image.open(BytesIO(data)))

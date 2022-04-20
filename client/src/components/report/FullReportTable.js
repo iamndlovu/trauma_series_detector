@@ -10,6 +10,7 @@ const FullReportTable = React.forwardRef(
 			hospitalNumber,
 			patientID,
 			referringClinician,
+			dateOfBirth,
 		} = formData;
 
 		return (
@@ -20,6 +21,7 @@ const FullReportTable = React.forwardRef(
 							<th>First Name:</th>
 							<th>Last Name(s):</th>
 							<th>Patient ID:</th>
+							<th>Date of Birth</th>
 							<th>Hospital Number:</th>
 							<th>Referring Clinician:</th>
 						</tr>
@@ -29,6 +31,7 @@ const FullReportTable = React.forwardRef(
 							<td>{patientFirstName}</td>
 							<td>{patientLastName}</td>
 							<td>{patientID}</td>
+							<td>{dateOfBirth}</td>
 							<td>{hospitalNumber}</td>
 							<td>{referringClinician}</td>
 						</tr>

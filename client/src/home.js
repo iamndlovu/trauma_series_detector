@@ -137,6 +137,7 @@ export const ImageUpload = () => {
 	const [patientLastName, setPatientLastName] = useState('');
 	const [hospitalNumber, sethospitalNumber] = useState('');
 	const [patientID, setPatientID] = useState('');
+	const [dateOfBirth, setDateOfBirth] = useState('');
 	const [referringClinician, setreferringClinician] = useState('');
 	const [showForm, setShowForm] = useState(true);
 
@@ -147,6 +148,8 @@ export const ImageUpload = () => {
 	const onChangeHospitalNumber = e => sethospitalNumber(e.target.value);
 	const onChangeClinician = e => setreferringClinician(e.target.value);
 	const onChangePatientID = e => setPatientID(e.target.value);
+	const onChangeDateOfBirth = e => setDateOfBirth(e.target.value);
+
 	const submitForm = e => {
 		e.preventDefault();
 		setShowForm(false);
@@ -216,7 +219,7 @@ export const ImageUpload = () => {
 				maxWidth={false}
 				className={classes.mainContainer}
 				disableGutters={true}
-				style={{position: 'relative'}}
+				style={{ position: 'relative' }}
 			>
 				<Grid
 					className={classes.gridContainer}
@@ -234,6 +237,7 @@ export const ImageUpload = () => {
 								hospitalNumber,
 								patientID,
 								referringClinician,
+								dateOfBirth,
 							}}
 							formControls={{
 								onChangeFirstName,
@@ -241,6 +245,7 @@ export const ImageUpload = () => {
 								onChangeHospitalNumber,
 								onChangeClinician,
 								onChangePatientID,
+								onChangeDateOfBirth,
 								submitForm,
 							}}
 						/>
@@ -258,6 +263,7 @@ export const ImageUpload = () => {
 								patientLastName,
 								hospitalNumber,
 								patientID,
+								dateOfBirth,
 								referringClinician,
 							}}
 						/>

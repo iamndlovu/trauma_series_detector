@@ -9,6 +9,7 @@ const PatientDetailsForm = ({ formData, formControls }) => {
 		hospitalNumber,
 		patientID,
 		referringClinician,
+		dateOfBirth,
 	} = formData;
 
 	const {
@@ -17,6 +18,7 @@ const PatientDetailsForm = ({ formData, formControls }) => {
 		onChangeHospitalNumber,
 		onChangeClinician,
 		onChangePatientID,
+		onChangeDateOfBirth,
 		submitForm,
 	} = formControls;
 
@@ -60,6 +62,16 @@ const PatientDetailsForm = ({ formData, formControls }) => {
 					placeholder="Patient ID"
 					value={patientID}
 					onChange={onChangePatientID}
+				/>
+			</div>
+			<div className={styles.formGroup}>
+				<label>Patient Date of Birth:</label>
+				<input
+					type="date"
+					required
+					placeholder="Patient Date of Birth"
+					value={dateOfBirth}
+					onChange={onChangeDateOfBirth}
 				/>
 			</div>
 			<div className={styles.formGroup}>
