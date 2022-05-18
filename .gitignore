@@ -1,3 +1,4 @@
-/training
-.idea
+/training/imgs
+/training/.*
+/.idea/
 node_modules

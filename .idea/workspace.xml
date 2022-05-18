@@ -4,10 +4,9 @@
     <list default="true" id="f56f49c5-9220-4631-b486-e7fe8924e571" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/form/PatientDetailsForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/form/PatientDetailsForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/card/ImageCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/card/ImageCard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/form/PatientDetailsForm.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/form/PatientDetailsForm.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/report/FullReportTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/report/FullReportTable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/report/FullReportTable.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/report/FullReportTable.module.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

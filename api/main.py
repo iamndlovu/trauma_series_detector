@@ -20,7 +20,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-MODEL = tf.keras.models.load_model("./fractures.h5")
+MODEL = tf.keras.models.load_model("./trauma_series_model.h5")
 
 CLASS_NAMES = ["C-Spine: Dislocation", "C-Spine: Fractured", "C-Spine: No Life Threatening Abnormalities Detected", "Chest: Flail", "Chest: Hemothorax", "Chest: No Life Threatening Abnormalities Detected", "Chest: Pneumothorax", "Pelvis: Fractured", "Pelvis: No Life Threatening Injuries Detected"]
 
