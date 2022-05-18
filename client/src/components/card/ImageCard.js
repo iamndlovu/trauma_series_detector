@@ -65,7 +65,7 @@ const useStyles = makeStyles(theme => ({
 	imageCard: {
 		margin: 'auto',
 		maxWidth: 400,
-		height: 500,
+//		height: 500,
 		backgroundColor: 'rgba(0, 0, 0, 0.8)',
 		boxShadow: '0px 9px 70px 0px rgb(255 255 255 / 30%) !important',
 		borderRadius: '15px',
@@ -98,15 +98,15 @@ const useStyles = makeStyles(theme => ({
 		backgroundColor: 'transparent !important',
 	},
 	tableCell: {
-		fontSize: '22px',
+		fontSize: '1rem',
 		backgroundColor: 'transparent !important',
 		borderColor: 'transparent !important',
 		color: '#000000a6 !important',
-		fontWeight: 'bolder',
+		fontWeight: '400',
 		padding: '1px 24px 1px 16px',
 	},
 	tableCell1: {
-		fontSize: '14px',
+		fontSize: '1.3rem',
 		backgroundColor: 'transparent !important',
 		borderColor: 'transparent !important',
 		color: '#000000a6 !important',
