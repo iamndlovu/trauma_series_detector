@@ -1,5 +1,5 @@
 {
-  "name": "trauma-series-detector",
+  "name": "trauma-series-detector-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

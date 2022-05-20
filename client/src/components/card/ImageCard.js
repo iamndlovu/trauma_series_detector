@@ -255,34 +255,45 @@ const ImageCard = ({
 			</Grid>
 			{data && (
 				<Grid item className={classes.buttonGrid}>
-					{!showReport && (
+					<div
+						style={{
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'space-between',
+							flexWrap: 'wrap',
+						}}
+					>
+						{!showReport && (
+							<>
+								<ColorButton
+									variant="contained"
+									className={classes.clearButton}
+									color="primary"
+									component="span"
+									size="large"
+									onClick={toggleReport}
+								>
+									Full report
+								</ColorButton>
+								<br />
+								<br />
+							</>
+						)}
 						<ColorButton
 							variant="contained"
 							className={classes.clearButton}
 							color="primary"
 							component="span"
 							size="large"
-							onClick={toggleReport}
+							onClick={() => {
+								setShowReport(false);
+								clearData();
+							}}
+							startIcon={<Clear fontSize="large" />}
 						>
-							Full report
+							Clear
 						</ColorButton>
-					)}
-					<br />
-					<br />
-					<ColorButton
-						variant="contained"
-						className={classes.clearButton}
-						color="primary"
-						component="span"
-						size="large"
-						onClick={() => {
-							setShowReport(false);
-							clearData();
-						}}
-						startIcon={<Clear fontSize="large" />}
-					>
-						Clear
-					</ColorButton>
+					</div>
 				</Grid>
 			)}
 		</>

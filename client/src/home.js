@@ -212,6 +212,11 @@ export const ImageUpload = () => {
 		confidence = (parseFloat(data.confidence) * 100).toFixed(2);
 	}
 
+	if (image && isLoading) {
+		sendFile();
+		setIsloading(false);
+	}
+
 	return (
 		<React.Fragment>
 			<Header />
