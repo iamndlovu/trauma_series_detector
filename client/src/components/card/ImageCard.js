@@ -20,7 +20,7 @@ import {
 	Button,
 	CircularProgress,
 } from '@material-ui/core';
-import { DropzoneArea } from 'material-ui-dropzone';
+import { DropzoneAreaBase } from 'material-ui-dropzone';
 import { common } from '@material-ui/core/colors';
 import Clear from '@material-ui/icons/Clear';
 
@@ -65,7 +65,7 @@ const useStyles = makeStyles(theme => ({
 	imageCard: {
 		margin: 'auto',
 		maxWidth: 400,
-//		height: 500,
+		//		height: 500,
 		backgroundColor: 'rgba(0, 0, 0, 0.8)',
 		boxShadow: '0px 9px 70px 0px rgb(255 255 255 / 30%) !important',
 		borderRadius: '15px',
@@ -185,12 +185,18 @@ const ImageCard = ({
 						)}
 						{!image && (
 							<CardContent className={classes.content}>
-								<DropzoneArea
+								<DropzoneAreaBase
 									acceptedFiles={['image/*']}
 									dropzoneText={
 										'Drag and drop an image of your scan to process'
 									}
-									onChange={onSelectFile}
+									onDrop={onSelectFile}
+									// Max file size = 1GB
+									maxFileSize={1073741824}
+									// only display error & info alerts
+									showAlerts={['error', 'info']}
+									// upload only one file
+									filesLimit={1}
 								/>
 							</CardContent>
 						)}
@@ -249,7 +255,7 @@ const ImageCard = ({
 			</Grid>
 			{data && (
 				<Grid item className={classes.buttonGrid}>
-				  {!showReport && (
+					{!showReport && (
 						<ColorButton
 							variant="contained"
 							className={classes.clearButton}
@@ -261,7 +267,8 @@ const ImageCard = ({
 							Full report
 						</ColorButton>
 					)}
-					<br /><br />
+					<br />
+					<br />
 					<ColorButton
 						variant="contained"
 						className={classes.clearButton}
@@ -286,31 +293,40 @@ const PrintableReport = ({ formData, image, data, confidence }) => {
 	const componentRef = useRef();
 	const [hover, setHover] = useState(false);
 
-
 	const buttonStyles = {
-  position: 'absolute',
-  top: '5px',
+		position: 'absolute',
+		top: '5px',
 
-	backgroundColor: '#04080e',
-	color: hover ? '#61dafb' : '#ff0000',
-	fontSize: '1.1rem',
-	minHeight: '3rem',
-	minWidth: '7rem',
-	borderRadius: '6px',
-	padding: '0.375rem 0.75rem',
-	margin: 'auto',
-	cursor: 'pointer',
-	transition: 'all 0.5s ease-in-out',
-};
+		backgroundColor: '#04080e',
+		color: hover ? '#61dafb' : '#ff0000',
+		fontSize: '1.1rem',
+		minHeight: '3rem',
+		minWidth: '7rem',
+		borderRadius: '6px',
+		padding: '0.375rem 0.75rem',
+		margin: 'auto',
+		cursor: 'pointer',
+		transition: 'all 0.5s ease-in-out',
+	};
 
 	return (
-		<div style={{
-		  display: 'flex',
-		  justifyContent: 'center',
-		  alignItems: 'center',
-		}}>
+		<div
+			style={{
+				display: 'flex',
+				justifyContent: 'center',
+				alignItems: 'center',
+			}}
+		>
 			<ReactToPrint
-				trigger={() => <button onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} style={buttonStyles}>PRINT THIS REPORT</button>}
+				trigger={() => (
+					<button
+						onMouseEnter={() => setHover(true)}
+						onMouseLeave={() => setHover(false)}
+						style={buttonStyles}
+					>
+						PRINT THIS REPORT
+					</button>
+				)}
 				content={() => componentRef.current}
 			/>
 			<FullReportTable
