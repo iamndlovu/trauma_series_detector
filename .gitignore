@@ -2,3 +2,4 @@
 /training/.*
 /.idea/
 node_modules
+/front-end

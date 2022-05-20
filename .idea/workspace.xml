@@ -3,10 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="f56f49c5-9220-4631-b486-e7fe8924e571" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/card/ImageCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/card/ImageCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/form/PatientDetailsForm.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/form/PatientDetailsForm.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/report/FullReportTable.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/report/FullReportTable.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/training/fracturedetection.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/training/fracturedetection.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,5 +65,16 @@
       <updated>1647934538204</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
