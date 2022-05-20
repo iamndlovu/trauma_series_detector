@@ -1,11 +1,17 @@
 {
-  "name": "fracture-detection-app",
+  "name": "trauma-series-detector",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "api": "cd api && python main.py",
+    "client": "npm start --prefix client",
+    "start": "concurrently \"npm run client\" \"npm run api\"",
+    "client-install": "npm install --prefix client"
   },
   "author": "iamndlovu",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^7.2.0"
+  }
 }

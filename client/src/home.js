@@ -213,8 +213,7 @@ export const ImageUpload = () => {
 	}
 
 	if (image && isLoading) {
-		sendFile();
-		setIsloading(false);
+		sendFile().then(() => setIsloading(false));
 	}
 
 	return (
