@@ -39,14 +39,14 @@ async def predict(
     img_batch = np.expand_dims(image, 0)
     img_batch = tf.image.resize(
         img_batch,
-        [256, 256],
+        [224, 224],
         # method=bilinear,
         preserve_aspect_ratio=False,
         antialias=False,
     )
 
     predictions = MODEL.predict(img_batch)
-
+    print(predictions)
     predicted_class = CLASS_NAMES[np.argmax(predictions[0])]
     confidence = np.max(predictions[0])
     return {
