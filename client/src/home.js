@@ -7,6 +7,7 @@ import { Grid } from '@material-ui/core';
 import bgImage from './bg.png';
 import PatientDetailsForm from './components/form/PatientDetailsForm';
 import ImageCard from './components/card/ImageCard';
+import SelectionButtons from './components/selection/SelectionButtons';
 const axios = require('axios').default;
 
 const useStyles = makeStyles(theme => ({
@@ -139,7 +140,9 @@ export const ImageUpload = () => {
 	const [patientID, setPatientID] = useState('');
 	const [dateOfBirth, setDateOfBirth] = useState('');
 	const [referringClinician, setreferringClinician] = useState('');
-	const [showForm, setShowForm] = useState(true);
+	const [showForm, setShowForm] = useState(false);
+	const [showSelection, setShowSelection] = useState(true);
+	const [selection, setSelection] = useState(null);
 
 	let confidence = 0;
 
@@ -161,7 +164,7 @@ export const ImageUpload = () => {
 			formData.append('file', selectedFile);
 			let res = await axios({
 				method: 'post',
-				url: process.env.REMOTE_API_URL,
+				url: process.env.REACT_APP_API_URL,
 				data: formData,
 			});
 			if (res.status === 200) {
@@ -176,7 +179,9 @@ export const ImageUpload = () => {
 		setImage(false);
 		setSelectedFile(null);
 		setPreview(null);
-		setShowForm(true);
+		setShowForm(false);
+		setSelection(null);
+		setShowSelection(true);
 	};
 
 	useEffect(() => {
@@ -233,45 +238,52 @@ export const ImageUpload = () => {
 					alignItems="center"
 					spacing={2}
 				>
-					{showForm ? (
-						<PatientDetailsForm
-							formData={{
-								patientFirstName,
-								patientLastName,
-								hospitalNumber,
-								patientID,
-								referringClinician,
-								dateOfBirth,
-							}}
-							formControls={{
-								onChangeFirstName,
-								onChangeLastName,
-								onChangeHospitalNumber,
-								onChangeClinician,
-								onChangePatientID,
-								onChangeDateOfBirth,
-								submitForm,
-							}}
+					{(showSelection && (
+						<SelectionButtons
+							setSelection={setSelection}
+							toggle={setShowSelection}
+							toggleForm={setShowForm}
 						/>
-					) : (
-						<ImageCard
-							isLoading={isLoading}
-							image={image}
-							preview={preview}
-							onSelectFile={onSelectFile}
-							data={data}
-							confidence={confidence}
-							clearData={clearData}
-							formData={{
-								patientFirstName,
-								patientLastName,
-								hospitalNumber,
-								patientID,
-								dateOfBirth,
-								referringClinician,
-							}}
-						/>
-					)}
+					)) ||
+						(showForm ? (
+							<PatientDetailsForm
+								formData={{
+									patientFirstName,
+									patientLastName,
+									hospitalNumber,
+									patientID,
+									referringClinician,
+									dateOfBirth,
+								}}
+								formControls={{
+									onChangeFirstName,
+									onChangeLastName,
+									onChangeHospitalNumber,
+									onChangeClinician,
+									onChangePatientID,
+									onChangeDateOfBirth,
+									submitForm,
+								}}
+							/>
+						) : (
+							<ImageCard
+								isLoading={isLoading}
+								image={image}
+								preview={preview}
+								onSelectFile={onSelectFile}
+								data={data}
+								confidence={confidence}
+								clearData={clearData}
+								formData={{
+									patientFirstName,
+									patientLastName,
+									hospitalNumber,
+									patientID,
+									dateOfBirth,
+									referringClinician,
+								}}
+							/>
+						))}
 				</Grid>
 			</Container>
 		</React.Fragment>
