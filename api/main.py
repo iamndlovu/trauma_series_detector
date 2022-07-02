@@ -39,7 +39,7 @@ async def predict(
     img_batch = np.expand_dims(image, 0)
     img_batch = tf.image.resize(
         img_batch,
-        [224, 224],
+        [256, 256],
         # method=bilinear,
         preserve_aspect_ratio=False,
         antialias=False,
