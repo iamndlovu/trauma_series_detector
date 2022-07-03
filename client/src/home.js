@@ -164,7 +164,7 @@ export const ImageUpload = () => {
 			formData.append('file', selectedFile);
 			let res = await axios({
 				method: 'post',
-				url: process.env.REACT_APP_API_URL,
+				url: `${process.env.REACT_APP_API_URL}/${selection}`,
 				data: formData,
 			});
 			if (res.status === 200) {
@@ -199,6 +199,7 @@ export const ImageUpload = () => {
 		}
 		setIsloading(true);
 		sendFile();
+		// eslint-disable-next-line
 	}, [preview]);
 
 	const onSelectFile = files => {

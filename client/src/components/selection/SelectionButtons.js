@@ -47,9 +47,9 @@ const SelectionButtons = ({ setSelection, toggle, toggleForm }) => {
 						color="primary"
 						component="span"
 						size="large"
-						onClick={() => selectionMade('c-spine_fracture')}
+						onClick={() => selectionMade('chest')}
 					>
-						Fractured C-Spine
+						Chest
 					</ColorButton>
 				</div>
 				<div>
@@ -59,9 +59,9 @@ const SelectionButtons = ({ setSelection, toggle, toggleForm }) => {
 						color="primary"
 						component="span"
 						size="large"
-						onClick={() => selectionMade('pelvis_fracture')}
+						onClick={() => selectionMade('cspine')}
 					>
-						Fractured Pelvis
+						C-Spine
 					</ColorButton>
 				</div>
 				<div>
@@ -71,12 +71,12 @@ const SelectionButtons = ({ setSelection, toggle, toggleForm }) => {
 						color="primary"
 						component="span"
 						size="large"
-						onClick={() => selectionMade('haemothorax')}
+						onClick={() => selectionMade('pelvis')}
 					>
-						Haemothorax
+						Pelvis
 					</ColorButton>
 				</div>
-				<div>
+				{/* <div>
 					<ColorButton
 						variant="contained"
 						className={classes.clearButton}
@@ -87,7 +87,7 @@ const SelectionButtons = ({ setSelection, toggle, toggleForm }) => {
 					>
 						Pneumothorax
 					</ColorButton>
-				</div>
+				</div> */}
 			</div>
 		</section>
 	);
