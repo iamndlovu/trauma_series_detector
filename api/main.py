@@ -20,10 +20,21 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-MODEL = tf.keras.models.load_model("./trauma_series_model.h5")
+CHEST_MODEL = tf.keras.models.load_model(
+    "./trauma_series_chest_model_v1.0.0.h5")
+CSPINE_MODEL = tf.keras.models.load_model(
+    "./trauma_series_cspine_model_v1.0.0.h5")
+PELVIS_MODEL = tf.keras.models.load_model(
+    "./trauma_series_pelvis_and_hip_model_v1.0.0.h5")
 
-CLASS_NAMES = ["C-Spine: Dislocation", "C-Spine: Fractured", "C-Spine: No Life Threatening Abnormalities Detected", "Chest: Flail", "Chest: Hemothorax",
-               "Chest: No Life Threatening Abnormalities Detected", "Chest: Pneumothorax", "Pelvis: Fractured", "Pelvis: No Life Threatening Injuries Detected"]
+CHEST_CLASSES = ["Chest: ", "Chest: Flail",
+                 "Chest: Haemothorax", "Chest: No Life Threatening Abnormalities Detected", "Chest: Pneumothorax"]
+
+CSPINE_CLASSES = ["C-Spine: Fractured", "C-Spine: Subluxation",
+                  "C-Spine: No Life Threatening Abnormalities Detected"]
+
+PELVIS_CLASSES = ["HIP: Dislocation", "Pelvis: Fractured",
+                  "Pelvis: No Life Threatening Injuries Detected"]
 
 
 def read_file_as_image(data) -> np.ndarray:
@@ -31,9 +42,9 @@ def read_file_as_image(data) -> np.ndarray:
     return image
 
 
-@app.post("/predict")
-async def predict(
-        file: UploadFile = File(...)
+@app.post("/predict/chest")
+async def chest_predict(
+    file: UploadFile = File(...)
 ):
     image = read_file_as_image(await file.read())
     img_batch = np.expand_dims(image, 0)
@@ -45,15 +56,62 @@ async def predict(
         antialias=False,
     )
 
-    predictions = MODEL.predict(img_batch)
+    predictions = CHEST_MODEL.predict(img_batch)
     print(predictions)
-    predicted_class = CLASS_NAMES[np.argmax(predictions[0])]
+    predicted_class = CHEST_CLASSES[np.argmax(predictions[0])]
     confidence = np.max(predictions[0])
     return {
         'class': predicted_class,
         'confidence': float(confidence)
     }
 
+
+@app.post("/predict/cspine")
+async def cspine_predict(
+    file: UploadFile = File(...)
+):
+    image = read_file_as_image(await file.read())
+    img_batch = np.expand_dims(image, 0)
+    img_batch = tf.image.resize(
+        img_batch,
+        [256, 256],
+        # method=bilinear,
+        preserve_aspect_ratio=False,
+        antialias=False,
+    )
+
+    predictions = CSPINE_MODEL.predict(img_batch)
+    print(predictions)
+    predicted_class = CSPINE_CLASSES[np.argmax(predictions[0])]
+    confidence = np.max(predictions[0])
+    return {
+        'class': predicted_class,
+        'confidence': float(confidence)
+    }
+
+
+@app.post("/predict/pelvis")
+async def pelvis_predict(
+    file: UploadFile = File(...)
+):
+    image = read_file_as_image(await file.read())
+    img_batch = np.expand_dims(image, 0)
+    img_batch = tf.image.resize(
+        img_batch,
+        [256, 256],
+        # method=bilinear,
+        preserve_aspect_ratio=False,
+        antialias=False,
+    )
+
+    predictions = PELVIS_MODEL.predict(img_batch)
+    print(predictions)
+    predicted_class = CHEST_CLASSES[np.argmax(predictions[0])]
+    confidence = np.max(predictions[0])
+    return {
+        'class': predicted_class,
+        'confidence': float(confidence)
+    }
 
 if __name__ == "__main__":
     uvicorn.run(app, host='localhost', port=8000)
