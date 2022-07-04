@@ -38,7 +38,7 @@ const SelectionButtons = ({ setSelection, toggle, toggleForm }) => {
 
 	return (
 		<section className={styles.SelectionButtons}>
-			<h1>Select Suspected Injury</h1>
+			<h1>Select Area of Interest</h1>
 			<div>
 				<div>
 					<ColorButton

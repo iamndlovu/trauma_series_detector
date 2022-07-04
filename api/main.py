@@ -30,10 +30,11 @@ PELVIS_MODEL = tf.keras.models.load_model(
 CHEST_CLASSES = ["Chest: ", "Chest: Flail",
                  "Chest: Haemothorax", "Chest: No Life Threatening Abnormalities Detected", "Chest: Pneumothorax"]
 
-CSPINE_CLASSES = ["C-Spine: Fractured", "C-Spine: Subluxation",
-                  "C-Spine: No Life Threatening Abnormalities Detected"]
+CSPINE_CLASSES = ["C-Spine: Fractured",
+                  "C-Spine: No Life Threatening Abnormalities Detected", "C-Spine: Subluxation"]
 
-PELVIS_CLASSES = ["HIP: Dislocation", "Pelvis: Fractured",
+PELVIS_CLASSES = ["Pelvis: ",
+                  "Pelvis: Hip Dislocation", "Pelvis: Fractured",
                   "Pelvis: No Life Threatening Injuries Detected"]
 
 
@@ -106,7 +107,7 @@ async def pelvis_predict(
 
     predictions = PELVIS_MODEL.predict(img_batch)
     print(predictions)
-    predicted_class = CHEST_CLASSES[np.argmax(predictions[0])]
+    predicted_class = PELVIS_CLASSES[np.argmax(predictions[0])]
     confidence = np.max(predictions[0])
     return {
         'class': predicted_class,
